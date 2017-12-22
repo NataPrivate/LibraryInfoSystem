@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryInfoSystem", "LibraryInfoSystem\LibraryInfoSystem.csproj", "{5083A315-9E65-4045-8E7E-D0CD1FF10769}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibraryInfoSystemClient", "LibraryInfoSystem\LibraryInfoSystemClient.csproj", "{5083A315-9E65-4045-8E7E-D0CD1FF10769}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
