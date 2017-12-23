@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
 
-namespace LibraryInfoSystemClient
+namespace Client
 {
     public partial class LogInForm : Form
     {
@@ -15,7 +15,7 @@ namespace LibraryInfoSystemClient
         public LogInForm(string userType, ViewForm.Operation operation)
         {
             InitializeComponent();
-            
+
             TableName = userType;
             Operation = operation;
         }
@@ -33,7 +33,7 @@ namespace LibraryInfoSystemClient
             try
             {
                 string userId = GetUserId(TableName, keyColumnName, txtName.Text);
-                ((ViewForm) Owner).ClientID = Convert.ToInt32(userId);
+                ((ViewForm)Owner).ClientID = Convert.ToInt32(userId);
             }
             catch
             {

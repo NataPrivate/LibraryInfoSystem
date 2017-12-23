@@ -1,4 +1,4 @@
-﻿namespace LibraryInfoSystemClient
+﻿namespace Client
 {
     partial class InsertForm
     {

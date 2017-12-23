@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 
-namespace LibraryInfoSystemClient
+namespace Client
 {
     public partial class PersonalCabinetForm : Form
     {
@@ -64,8 +64,8 @@ namespace LibraryInfoSystemClient
 
         private DataTable GetOrdersHistoryByReader(int id)
         {
-            KeyValuePair<string, IList<string>> requestData = 
-                new KeyValuePair<string, IList<string>>( "getHistory", new List<string> {id.ToString()} );
+            KeyValuePair<string, IList<string>> requestData =
+                new KeyValuePair<string, IList<string>>("getHistory", new List<string> { id.ToString() });
             var binFormatter = new BinaryFormatter();
             var mStream = new MemoryStream();
             binFormatter.Serialize(mStream, requestData);

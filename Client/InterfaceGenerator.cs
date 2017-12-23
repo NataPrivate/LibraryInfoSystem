@@ -3,7 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace LibraryInfoSystemClient
+namespace Client
 {
     public class InterfaceGenerator
     {

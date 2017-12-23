@@ -10,7 +10,7 @@ using System.Security.Cryptography;
 using System.Threading;
 
 
-namespace LibraryInfoSystemClient
+namespace Client
 {
     public partial class AuthorizationForm : Form
     {
@@ -49,7 +49,7 @@ namespace LibraryInfoSystemClient
             // Очищаем поле с паролем
             textBoxPassword.Clear();
         }
-        
+
         private bool VerifyMd5Hash(string login, string password)
         {
             // Получаем хеш эквивалент введенного пароля
@@ -102,7 +102,7 @@ namespace LibraryInfoSystemClient
             byte[] byteRequest = mStream.ToArray();
 
             KeyValuePair<int, byte[]> response = SendRequestToServer(byteRequest);
-            
+
             string pass = Encoding.UTF8.GetString(response.Value, 0, response.Key);
 
             return pass;

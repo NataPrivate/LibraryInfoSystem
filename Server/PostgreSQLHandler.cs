@@ -8,14 +8,14 @@ using Npgsql;
 
 namespace Server
 {
-    class PostgreSQLHandler
+    class PostgreSqlHandler
     {
         #region properties
         private string DataBase;
         private string ConnectionString;
         #endregion
 
-        public PostgreSQLHandler(string login, string password, string database)
+        public PostgreSqlHandler(string login, string password, string database)
         {
             DataBase = database;
             ConnectionString = string.Format("Server=localhost;Username={0};Password={1};Database={2};", login, password, DataBase);

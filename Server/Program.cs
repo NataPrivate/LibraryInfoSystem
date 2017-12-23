@@ -10,9 +10,9 @@ using System.Threading;
 
 namespace Server
 {
-    public class Server
+    public class Program
     {
-        private static PostgreSQLHandler Handler;
+        private static PostgreSqlHandler Handler;
         private static byte[] ClientBuffer;
         private static Socket Socket;
 
@@ -35,7 +35,7 @@ namespace Server
                 while (true)
                 {
                     Console.WriteLine("Ожидаем соединение через порт {0}", ipEndPoint);
-                    ClientBuffer = new byte[8192];
+                    ClientBuffer = new byte[3072];
 
                     // Программа приостанавливается, ожидая входящее соединение
                     Socket = listener.Accept();
@@ -101,7 +101,7 @@ namespace Server
                     string login = requestData.Value[0];
                     string password = requestData.Value[1];
                     string database = requestData.Value[2];
-                    Handler = new PostgreSQLHandler(login, password, database);
+                    Handler = new PostgreSqlHandler(login, password, database);
                     break;
                 case "pass":
                     return GetPassword(requestData.Value);
@@ -150,7 +150,7 @@ namespace Server
                 return null;
 
             string login = parameters[0];
-            string reply = new PostgreSQLHandler("postgres", "postgres", "LibraryUsers").GetPassword(login);
+            string reply = new PostgreSqlHandler("postgres", "postgres", "LibraryUsers").GetPassword(login);
             return Encoding.UTF8.GetBytes(reply);
         }
 

@@ -10,9 +10,9 @@ using System.Text;
 using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
-namespace LibraryInfoSystemClient
+namespace Client
 {
-    public partial class ViewForm : Form, TableViewer
+    public partial class ViewForm : Form
     {
         #region properties
         public enum Operation { Insert, Delete, Update, Book, EnterPersonalCabinet, None }
@@ -78,7 +78,7 @@ namespace LibraryInfoSystemClient
             IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
             Socket socket = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-            byte[] answer = new byte[8192];
+            byte[] answer = new byte[102400];
             int bytesRec = 0;
             try
             {
@@ -95,13 +95,14 @@ namespace LibraryInfoSystemClient
                 Application.Exit();
             }
 
-            return new KeyValuePair<int, byte[]> ( bytesRec, answer);
+            return new KeyValuePair<int, byte[]>(bytesRec, answer);
         }
 
         private IList<string> GetTablesNames()
         {
             IList<string> tablesNames = null;
-            try {
+            try
+            {
                 KeyValuePair<string, IList<string>> requestData =
                     new KeyValuePair<string, IList<string>>("tablesNames", new List<string>());
                 var binFormatter = new BinaryFormatter();
@@ -128,13 +129,13 @@ namespace LibraryInfoSystemClient
             return tablesNames;
         }
 
-        private DataTable GetTable(string tableName, string sortColumnName="")
+        private DataTable GetTable(string tableName, string sortColumnName = "")
         {
             DataTable table = null;
             try
             {
                 KeyValuePair<string, IList<string>> requestData =
-                    new KeyValuePair<string, IList<string>>( "table", new List<string> { tableName, sortColumnName } );
+                    new KeyValuePair<string, IList<string>>("table", new List<string> { tableName, sortColumnName });
                 var binFormatter = new BinaryFormatter();
                 var mStream = new MemoryStream();
                 binFormatter.Serialize(mStream, requestData);
@@ -158,15 +159,15 @@ namespace LibraryInfoSystemClient
 
             return table;
         }
-        public DataTable GetSampleFromTable(string tableName, string keyPhrase, string searchColumnName, bool isSeparate, string sortColumnName="")
+        public DataTable GetSampleFromTable(string tableName, string keyPhrase, string searchColumnName, bool isSeparate, string sortColumnName = "")
         {
             DataTable table = null;
             try
             {
                 string isSeparateString = isSeparate ? "1" : "0";
-                KeyValuePair<string, IList<string>> requestData = 
-                    new KeyValuePair<string, IList<string>>( "sampleFromTable", 
-                        new List<string> { tableName, keyPhrase, searchColumnName, isSeparateString, sortColumnName } );
+                KeyValuePair<string, IList<string>> requestData =
+                    new KeyValuePair<string, IList<string>>("sampleFromTable",
+                        new List<string> { tableName, keyPhrase, searchColumnName, isSeparateString, sortColumnName });
                 var binFormatter = new BinaryFormatter();
                 var mStream = new MemoryStream();
                 binFormatter.Serialize(mStream, requestData);
@@ -193,7 +194,7 @@ namespace LibraryInfoSystemClient
 
         private void DeleteManyWithOneColumn(string tableName, string columnName, List<string> values)
         {
-            IList<string> parameters = new List<string> {tableName, columnName};
+            IList<string> parameters = new List<string> { tableName, columnName };
             foreach (var value in values)
                 parameters.Add(value);
             KeyValuePair<string, IList<string>> requestData =
@@ -253,7 +254,7 @@ namespace LibraryInfoSystemClient
             SetDefaultProperties(tableName);
             FillColumnNames();
         }
-        private void FillTable(string tableName, bool isSample=false)
+        private void FillTable(string tableName, bool isSample = false)
         {
             try
             {
@@ -439,7 +440,7 @@ namespace LibraryInfoSystemClient
             }
         }
         private void CommitAction()
-        { 
+        {
             if (CurrentOperation == Operation.Delete && dataGridView.SelectedRows.Count > 0)
                 ProceedDelete();
             else if (CurrentOperation == Operation.Update)
@@ -452,9 +453,9 @@ namespace LibraryInfoSystemClient
         }
         private void ProceedDelete()
         {
-            DataTable table = (DataTable) dataGridView.DataSource;
+            DataTable table = (DataTable)dataGridView.DataSource;
             List<string> values = new List<string>();
-            if (((DataTable) dataGridView.DataSource).Columns.Contains("id"))
+            if (((DataTable)dataGridView.DataSource).Columns.Contains("id"))
             {
                 for (int i = 0; i < dataGridView.SelectedRows.Count; i++)
                     values.Add(Convert.ToString(dataGridView.SelectedRows[i].Cells[table.Columns.IndexOf("id")].Value));
@@ -483,7 +484,7 @@ namespace LibraryInfoSystemClient
                 if (table.Columns[columnName].DataType.Name.Equals("DateTime"))
                     newValue = validator.ConvertToPostgreSQLDate(newValue);
                 if (table.Columns.Contains("id"))
-                    UpdateOneValueWithAnyColumn(table.TableName, columnName, newValue, 
+                    UpdateOneValueWithAnyColumn(table.TableName, columnName, newValue,
                                            "id", dataGridView.Rows[cellCoords.Key].Cells[table.Columns.IndexOf("id")].Value.ToString());
                 if (table.TableName.Equals("department") || table.TableName.Equals("hall"))
                     UpdateOneValueWithAnyColumn(table.TableName, columnName, newValue,
@@ -534,7 +535,7 @@ namespace LibraryInfoSystemClient
         {
             if (CurrentOperation != Operation.Update)
                 return;
-            
+
             // Добавляем координаты и содержимое поля таблицы в словарь
             KeyValuePair<int, int> coords = new KeyValuePair<int, int>(e.RowIndex, e.ColumnIndex);
             string value = (string)dataGridView.Rows[coords.Key].Cells[coords.Value].EditedFormattedValue;

@@ -1,4 +1,4 @@
-﻿namespace LibraryInfoSystemClient
+﻿namespace Client
 {
     partial class AuthorizationForm
     {
@@ -19,6 +19,7 @@
             }
             base.Dispose(disposing);
         }
+
 
         #region Windows Form Designer generated code
 

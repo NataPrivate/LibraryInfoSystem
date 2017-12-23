@@ -8,7 +8,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
 
-namespace LibraryInfoSystemClient
+namespace Client
 {
     public partial class InsertForm : Form
     {
@@ -68,7 +68,7 @@ namespace LibraryInfoSystemClient
             if (Owner != null && Operation == ViewForm.Operation.Book)
             {
                 string userId = GetUserId("reader", "full_name", textBoxes[0].Text);
-                ((ViewForm) Owner).ClientID = Convert.ToInt32(userId);
+                ((ViewForm)Owner).ClientID = Convert.ToInt32(userId);
                 ((ViewForm)Owner).Book();
                 Close();
             }
@@ -99,11 +99,11 @@ namespace LibraryInfoSystemClient
                 column = Table.Columns[Table.Columns.IndexOf(labels[i].Text)];
                 if (!validator.CheckField(column, newValue))
                 {
-                    MessageBox.Show(string.Format("Поле '{0}' заповнене невірно.", Table.Columns[labels[i].Text].ColumnName), 
+                    MessageBox.Show(string.Format("Поле '{0}' заповнене невірно.", Table.Columns[labels[i].Text].ColumnName),
                                     "Уважаемый пользователь!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return null;
                 }
-                
+
                 // Изменить поля с датой в соответствие формату в БД
                 if (column.DataType.Name.Equals("DateTime"))
                     newValue = validator.ConvertToPostgreSQLDate(newValue);
@@ -145,7 +145,7 @@ namespace LibraryInfoSystemClient
         private void InsertForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (Owner != null)
-                ((TableViewer)Owner).DisplayTableInfo(Table.TableName);
+                ((ViewForm)Owner).DisplayTableInfo(Table.TableName);
         }
     }
 }
