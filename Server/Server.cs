@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Server
 {
-    class Server
+    public class Server
     {
         private static PostgreSQLHandler Handler;
         private static byte[] ClientBuffer;

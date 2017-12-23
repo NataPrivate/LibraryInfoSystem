@@ -90,7 +90,7 @@
             <column name="reader_id" type="INT">
                 <constraints nullable="false"/>
             </column>
-            <column name="taken" type="date">
+            <column defaultValueComputed="CURRENT_DATE" name="taken" type="date">
                 <constraints nullable="false"/>
             </column>
             <column name="returned" type="date"/>
