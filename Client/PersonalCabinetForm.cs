@@ -86,7 +86,8 @@ namespace Client
 
         private DataTable GetBooksByPublisher(int id)
         {
-            KeyValuePair<string, int> requestData = new KeyValuePair<string, int>("getBooks", id);
+            KeyValuePair<string, IList<string>> requestData = 
+                new KeyValuePair<string, IList<string>>("getBooks", new List<string> { id.ToString() });
             var binFormatter = new BinaryFormatter();
             var mStream = new MemoryStream();
             binFormatter.Serialize(mStream, requestData);
