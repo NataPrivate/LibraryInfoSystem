@@ -3,9 +3,8 @@ services: postgresql
 
 sudo: required
 dist: trusty  
-mono: none
 
 solution: LibraryInfoSystem.sln
 
-before_script:
-  - dotnet restore
+install:
+- nuget restore ${TRAVIS_SOLUTION}
