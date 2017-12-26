@@ -44,7 +44,7 @@ namespace Client
                 else if (UserType == "publisher")
                     dataGridView.DataSource = GetBooksByPublisher(Id);
 
-                if (dataGridView.DataSource == null)
+                if (((DataTable)dataGridView.DataSource).Rows.Count == 0)
                     MessageBox.Show("На жаль, дані не знайдено.", "Шановний користувач!", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
             }

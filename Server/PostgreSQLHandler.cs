@@ -282,7 +282,7 @@ namespace Server
                 }
                 connection.Close();
             }
-            return table.Rows.Count == 0 ? null : table;
+            return table;
         }
 
         public DataTable GetBooksByPublisher(int id)
@@ -304,7 +304,7 @@ namespace Server
                 }
                 connection.Close();
             }
-            return table.Rows.Count == 0 ? null : table;
+            return table;
         }
     }
 }
